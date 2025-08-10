@@ -1,0 +1,16 @@
+
+import { ProductDetails } from "@/components/productDetails";
+import { stripe } from "@/lib/stripe";
+
+export default async function Detailprod({
+  params,
+}: {
+  params: {
+    id: string;
+  };
+}) {
+  const product = await stripe.products.retrieve(params.id, {
+    expand: ["default_price"],
+  });
+  return <ProductDetails product={product} />;
+}
